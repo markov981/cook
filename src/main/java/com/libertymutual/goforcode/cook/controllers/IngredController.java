@@ -15,16 +15,16 @@ import com.libertymutual.goforcode.cook.repositories.IngrRepository;
 
 
 @RestController
-@RequestMapping("/recipes")
+@RequestMapping("/recipes/{id}/ingredients")
 public class IngredController {
 
 	private IngrRepository ingrRepo;
 
 	public IngredController(IngrRepository ingrRepo) {
 		this.ingrRepo = ingrRepo;
-		ingrRepo.save(new Ingredient("Meat", 	"ounce", 10));
+		ingrRepo.save(new Ingredient("Meat", 	 "ounce", 10));
 		ingrRepo.save(new Ingredient("Potatoes", "kilo",  2));
-		ingrRepo.save(new Ingredient("Butter", 	"pound", 1));
+		ingrRepo.save(new Ingredient("Butter", 	 "pound", 1));
 	}
 	
 	
@@ -35,9 +35,9 @@ public class IngredController {
 	}
 
 	
-	@GetMapping("{id}/ingredients")
-	public Ingredient getOne(@PathVariable long id) throws IngredientNotFoundException {
-		Ingredient ingr = ingrRepo.findOne(id);
+	@GetMapping("{ing_id}")
+	public Ingredient getOne(@PathVariable long ing_id) throws IngredientNotFoundException {
+		Ingredient ingr = ingrRepo.findOne(ing_id);
 
 		if (ingr == null) {
 			throw new IngredientNotFoundException();
