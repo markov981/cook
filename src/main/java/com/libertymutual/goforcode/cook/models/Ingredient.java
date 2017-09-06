@@ -28,7 +28,7 @@ public class Ingredient {
 	private int quantity;
 
 	
-//	@JsonIgnore 
+	@JsonIgnore     //?????
 	@ManyToOne
 	private Recipe recipe;
 
@@ -42,6 +42,8 @@ public class Ingredient {
 		this.quantity 	= quantity;
 	}
 
+		
+	
 	public Long getId() {
 		return id;
 	}

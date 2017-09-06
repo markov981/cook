@@ -23,9 +23,9 @@ public class RecipeController {
 
 	public RecipeController(RecipeRepository rcpRepo) {
 		this.rcpRepo = rcpRepo;
-		rcpRepo.save(new Recipe("Food_1", "ounce", 10));
-		rcpRepo.save(new Recipe("Food_2", "kilo",  1));
-		rcpRepo.save(new Recipe("Food_3", "pound", 5));
+		rcpRepo.save(new Recipe("Food_1", "Description_1",  10));
+		rcpRepo.save(new Recipe("Food_2", "Description_2",  60));
+		rcpRepo.save(new Recipe("Food_3", "Description_3",  120));
 	}
 
 	
