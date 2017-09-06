@@ -29,27 +29,23 @@ public class Recipe {
 	
 	@OneToMany(mappedBy="recipe")
 	private List<Instruction> instructions;
-	// private List<Instruction> instr = new List<Instruction>();
 	
 	@OneToMany(mappedBy="recipe")
-	private List<Ingredient>  ingredients;
+	private List<Ingredient> ingredients;
 
-	
-//	@JsonIgnore 
-
-
-//	@OneToMany(mappedBy = "actor")
-//	private List<Award> awards;
-	
 	
 	public Recipe() {}
 	
 	public Recipe(String title, String description, int num_min) {
-		this.title = title;
-		this.description = description;
-		this.num_min = num_min;
+		this.title 			= title;
+		this.description 	= description;
+		this.num_min 		= num_min;		
+		ingredients 		= new ArrayList<Ingredient>();
 	}
 
+	
+	
+	
 	public Long getId() {
 		return id;
 	}
@@ -97,14 +93,4 @@ public class Recipe {
 	public void setIngredients(List<Ingredient> ingredients) {
 		this.ingredients = ingredients;
 	}
-
-
-
-
-//	public void addAward(Award award) { 
-//		if (awards ==null) {
-//			awards = new ArrayList<Award>();
-//		}
-//		awards.add(award);
-//	}
 }

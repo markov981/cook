@@ -1,6 +1,8 @@
 package com.libertymutual.goforcode.cook.controllers;
 
 import java.util.List;
+
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.libertymutual.goforcode.cook.models.Ingredient;
+import com.libertymutual.goforcode.cook.models.Recipe;
 import com.libertymutual.goforcode.cook.repositories.IngrRepository;
+import com.libertymutual.goforcode.cook.repositories.RecipeRepository;
 
 
 
@@ -22,9 +26,6 @@ public class IngredController {
 
 	public IngredController(IngrRepository ingrRepo) {
 		this.ingrRepo = ingrRepo;
-		ingrRepo.save(new Ingredient("Meat", 	 "ounce", 10));
-		ingrRepo.save(new Ingredient("Potatoes", "kilo",  2));
-		ingrRepo.save(new Ingredient("Butter", 	 "pound", 1));
 	}
 	
 	
@@ -44,8 +45,17 @@ public class IngredController {
 		}
 		return ingr;
 	}
-
 	
-
-//	/recipes/{id}/ingredients/{ing_id}   PUT    mappedby ????
+	
+	@DeleteMapping("{ing_id}")
+	public Ingredient delete(@PathVariable long ing_id) {
+		try {
+			Ingredient ingr = ingrRepo.findOne(ing_id);
+			ingrRepo.delete(ing_id);
+			return ingr;	
+			
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}		
 }

@@ -1,14 +1,11 @@
 package com.libertymutual.goforcode.cook.models;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
@@ -28,7 +25,7 @@ public class Ingredient {
 	private int quantity;
 
 	
-	@JsonIgnore     //?????
+	@JsonIgnore    
 	@ManyToOne
 	private Recipe recipe;
 
@@ -36,10 +33,11 @@ public class Ingredient {
 	
 	public Ingredient() {}
 	
-	public Ingredient(String food_name, String units, int quantity) {
+	public Ingredient(Recipe recipe, String food_name, String units, int quantity) {
 		this.food_name 	= food_name;
 		this.units 		= units;
 		this.quantity 	= quantity;
+		this.recipe     = recipe;       // +
 	}
 
 		
@@ -74,5 +72,13 @@ public class Ingredient {
 
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+	}
+
+	public Recipe getRecipe() {
+		return recipe;
+	}
+
+	public void setRecipe(Recipe recipe) {
+		this.recipe = recipe;
 	}
 }
