@@ -19,7 +19,7 @@ import com.libertymutual.goforcode.cook.repositories.RecipeRepository;
 
 
 @RestController
-@RequestMapping("/recipes/{id}/ingredients")
+@RequestMapping("/recipes/{recipeId}/ingredients")
 public class IngredController {
 
 	private IngrRepository ingrRepo;
@@ -31,7 +31,7 @@ public class IngredController {
 	
 	
 	@GetMapping("")
-	public List<Ingredient> getAll() {
+	public List<Ingredient> getAll(@PathVariable long recipeId) {
 		return ingrRepo.findAll();
 	}
 
@@ -46,6 +46,13 @@ public class IngredController {
 		return ingr;
 	}
 	
+
+	
+	@PostMapping("")
+	public Ingredient create(@RequestBody Ingredient ingr) {
+		return ingrRepo.save(ingr);	
+	}
+		
 	
 	@DeleteMapping("{ing_id}")
 	public Ingredient delete(@PathVariable long ing_id) {

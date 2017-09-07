@@ -47,6 +47,14 @@ public class InstrController {
 		return instr;
 	}
 	
+
+	
+	@PostMapping("")
+	public Instruction create(@RequestBody Instruction instr) {
+		return instrRepo.save(instr);	
+	}
+		
+	
 	
 	@DeleteMapping("{ins_id}")
 	public Instruction delete(@PathVariable long ins_id) {
