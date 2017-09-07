@@ -23,7 +23,6 @@ import com.libertymutual.goforcode.cook.models.Recipe;
 import com.libertymutual.goforcode.cook.repositories.IngrRepository;
 import com.libertymutual.goforcode.cook.repositories.InstrRepository;
 import com.libertymutual.goforcode.cook.repositories.RecipeRepository;
-import com.libertymutual.goforcode.wimp.models.Movie;
 
 
 
@@ -58,9 +57,9 @@ public class RecipeControllerTests {
 		List <Recipe> actual = controller.getAll();
 				
 		// Assert
-		assertThat(actual.size()).isEqualTo(3);
-		assertThat(actual.get(0)).isSameAs(mvs.get(0));
-		verify(mvRepo).findAll();   
+		assertThat(actual.size()).isEqualTo(2);
+		assertThat(actual.get(0)).isSameAs(rcp.get(0));
+		verify(rcpRepo).findAll();   
 	}	
 		
 	
