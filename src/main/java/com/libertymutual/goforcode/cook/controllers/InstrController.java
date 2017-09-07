@@ -20,7 +20,7 @@ import com.libertymutual.goforcode.cook.repositories.InstrRepository;
 
 
 @RestController
-@RequestMapping("/recipes/{id}/instructions")
+@RequestMapping("/recipes/{recipeId}/instructions")
 public class InstrController {
 
 	private InstrRepository instrRepo;
@@ -32,19 +32,25 @@ public class InstrController {
 	
 	
 	@GetMapping("")
-	public List<Instruction> getAll() {
+	public List<Instruction> getAll(@PathVariable long recipeId) {
 		return instrRepo.findAll();
 	}
 
 	
 	@GetMapping("{ins_id}")
-	public Instruction getOne(@PathVariable long ing_id) throws InstructionNotFoundException {
-		Instruction instr = instrRepo.findOne(ing_id);
+	public Instruction getOne(@PathVariable long ins_id) throws InstructionNotFoundException {
+		Instruction instr = instrRepo.findOne(ins_id);
 
 		if (instr == null) {
 			throw new InstructionNotFoundException();
 		}
 		return instr;
+	}
+	
+	
+	@PostMapping("")
+	public Instruction create(@RequestBody Instruction instr) {
+		return instrRepo.save(instr);	
 	}
 	
 	

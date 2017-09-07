@@ -44,7 +44,8 @@ public class RecipeController {
 				new Recipe("Noodles", "Once upon a time in America...",  120)
 		});
 		
-		rcpRepo.save(recipes);		
+		rcpRepo.save(recipes);	
+		
 		ingrRepo.save(new Ingredient(recipes.get(0), "Meat", 	 "ounce", 10));		
 		ingrRepo.save(new Ingredient(recipes.get(0), "Potatoes", "kilo",  2));		
 		ingrRepo.save(new Ingredient(recipes.get(2), "Butter", 	 "pound", 1));
