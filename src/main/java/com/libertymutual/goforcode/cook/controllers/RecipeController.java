@@ -57,10 +57,10 @@ public class RecipeController {
 	}
 
 
-	
+	// Search for Recipes by title (or by id), title search is of the regex type: 
+	// 'Beef Fancy' search on title will return the same result as a search for 'ancy' (for records currently in the DB)
 	@GetMapping("")
-	public List<Recipe> getAll(String title) {
-		
+	public List<Recipe> getAll(String title) {		
 		List<Recipe> rcp;
 		if (title != null) {
 			rcp = rcpRepo.findByTitleContaining(title);
@@ -78,23 +78,9 @@ public class RecipeController {
 			throw new RecipeNotFoundException();
 		}
 		return rcp;
-	}
+	}	
 	
-
-//	@GetMapping("")
-//	public List <Recipe> getOneByTitle(String title) throws RecipeNotFoundException {
-//		List<Recipe> rcp;
-//	
-//		rcp = rcpRepo.findByTitleLike(title);
-// 			
-//		return rcp;
-//	}
-//	
-	
-	
-	
-	
-	
+		
 	@PostMapping("")
 	public Recipe create(@RequestBody Recipe rcp) {
 		return rcpRepo.save(rcp);	

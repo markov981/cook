@@ -63,8 +63,7 @@ public class IngredController {
 		try {
 			Ingredient ingr = ingrRepo.findOne(ing_id);
 			ingrRepo.delete(ing_id);
-			return ingr;	
-			
+			return ingr;				
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}

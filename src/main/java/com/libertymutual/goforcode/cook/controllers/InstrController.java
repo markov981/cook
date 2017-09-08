@@ -43,7 +43,6 @@ public class InstrController {
 	@GetMapping("{ins_id}")
 	public Instruction getOne(@PathVariable long ing_id) throws InstructionNotFoundException {
 		Instruction instr = instrRepo.findOne(ing_id);
-
 		if (instr == null) {
 			throw new InstructionNotFoundException();
 		}
@@ -64,8 +63,7 @@ public class InstrController {
 			try {
 				Instruction instr = instrRepo.findOne(ins_id);
 				instrRepo.delete(ins_id);
-				return instr;	
-				
+				return instr;					
 			} catch (EmptyResultDataAccessException e) {
 				return null;
 			}

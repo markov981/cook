@@ -2,6 +2,7 @@ package com.libertymutual.goforcode.cook;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -47,26 +48,47 @@ public class RecipeControllerTests {
 	}
 
 
-	// GetAll
-//	@Test
-//	public void test_that_get_all_returns_all_recipes_from_database() {
-//		
-//		// Arrange
-//		ArrayList<Recipe> rcp = new ArrayList<Recipe>();
-//		rcp.add(new Recipe());
-//		rcp.add(new Recipe());				
-//		when(rcpRepo.findAll()).thenReturn(rcp); 	
-//				
-//		// Act
-//		List <Recipe> actual = controller.getAll("Noodles");
-//				
-//		// Assert
-//		assertThat(actual.size()).isEqualTo(2);
-//		assertThat(actual.get(0)).isSameAs(rcp.get(0));
-//		verify(rcpRepo).findAll();   
-//	}	
+	// GetAll - test the get-all-returned-by-id-search branch
+	@Test
+	public void test_that_get_all_returns_all_recipes_with_given_id() {
+		
+		// Arrange
+		ArrayList<Recipe> rcp = new ArrayList<Recipe>();
+		rcp.add(new Recipe());
+		rcp.add(new Recipe());				
+		when(rcpRepo.findAll()).thenReturn(rcp); 	
+				
+		// Act
+		List <Recipe> actual = controller.getAll(null);
+				
+		// Assert
+		assertThat(actual.size()).isEqualTo(2);
+		assertThat(actual.get(0)).isSameAs(rcp.get(0));
+		verify(rcpRepo).findAll();   
+	}	
 
 	
+	// GetAll - test the get-all-returned-by-title-search branch
+	@Test
+	public void test_that_get_all_returns_all_recipes_with_given_title() {
+		
+		// Arrange
+		Recipe rcp = new Recipe();
+		rcp.setTitle("Beef");
+		ArrayList<Recipe> rcpList = new ArrayList<Recipe>();  // ?
+		rcpList.add(rcp);		                              // ? 
+		//when(rcpRepo.findAll()).thenReturn(rcpList); 	      // ?
+		when(rcpRepo.findByTitleContaining("Beef")).thenReturn(rcpList);		
+		// Act  
+		// List <Recipe> actual = controller.getAll("Beef");
+				
+		// Assert
+		// assertThat(actual.size()).isEqualTo(1);
+		assertThat("Beef").isEqualTo(rcp.getTitle());
+		//verify(rcpRepo.findByTitleContaining("Beef") , atLeastOnce());  
+	}
+
+
 
 	// GetOne - by ID
 	@Test
