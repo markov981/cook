@@ -14,13 +14,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import com.libertymutual.goforcode.cook.controllers.RecipeController;
 import com.libertymutual.goforcode.cook.controllers.RecipeNotFoundException;
 import com.libertymutual.goforcode.cook.controllers.TitleNotFoundException;
@@ -47,50 +47,10 @@ public class RecipeControllerTests {
 		controller  = new RecipeController(rcpRepo,  ingrRepo,  instrRepo);	
 	}
 
-
-	// GetAll - test the get-all-returned-by-id-search branch
-	@Test
-	public void test_that_get_all_returns_all_recipes_with_given_id() {
-		
-		// Arrange
-		ArrayList<Recipe> rcp = new ArrayList<Recipe>();
-		rcp.add(new Recipe());
-		rcp.add(new Recipe());				
-		when(rcpRepo.findAll()).thenReturn(rcp); 	
-				
-		// Act
-		List <Recipe> actual = controller.getAll(null);
-				
-		// Assert
-		assertThat(actual.size()).isEqualTo(2);
-		assertThat(actual.get(0)).isSameAs(rcp.get(0));
-		verify(rcpRepo).findAll();   
-	}	
-
 	
-	// GetAll - test the get-all-returned-by-title-search branch
-	@Test
-	public void test_that_get_all_returns_all_recipes_with_given_title() {
-		
-		// Arrange
-		Recipe rcp = new Recipe();
-		rcp.setTitle("Beef");
-		ArrayList<Recipe> rcpList = new ArrayList<Recipe>();  // ?
-		rcpList.add(rcp);		                              // ? 
-		//when(rcpRepo.findAll()).thenReturn(rcpList); 	      // ?
-		when(rcpRepo.findByTitleContaining("Beef")).thenReturn(rcpList);		
-		// Act  
-		// List <Recipe> actual = controller.getAll("Beef");
-				
-		// Assert
-		// assertThat(actual.size()).isEqualTo(1);
-		assertThat("Beef").isEqualTo(rcp.getTitle());
-		//verify(rcpRepo.findByTitleContaining("Beef") , atLeastOnce());  
-	}
+	
 
-
-
-	// GetOne - by ID
+	// GetOne - Recipe, by ID    
 	@Test
 	public void test_get_a_recipe_by_id() throws RecipeNotFoundException{
 		
@@ -114,6 +74,48 @@ public class RecipeControllerTests {
 	}		
 
 	
+	
+	
+	// GetAll (1) by ID 
+	@Test
+	public void test_that_get_all_returns_all_recipes_with_given_id() {
+		
+		// Arrange
+		ArrayList<Recipe> rcp = new ArrayList<Recipe>();
+		rcp.add(new Recipe());
+		rcp.add(new Recipe());				
+		when(rcpRepo.findAll()).thenReturn(rcp); 	
+				
+		// Act
+		List <Recipe> actual = controller.getAll(null);
+				
+		// Assert
+		assertThat(actual.size()).isEqualTo(2);
+		assertThat(actual.get(0)).isSameAs(rcp.get(0));
+		verify(rcpRepo).findAll();   
+	}	
+	
+	
+	
+	// GetAll - (2) by TITLE    test the get-all-returned-by-title-search branch
+	@Test
+	public void test_that_get_all_returns_all_recipes_with_given_title() {
+		
+		// Arrange
+		Recipe rcp = new Recipe();
+		rcp.setTitle("Beef");
+		ArrayList<Recipe> rcpList = new ArrayList<Recipe>();  
+		rcpList.add(rcp);		                              
+		when(rcpRepo.findByTitleContaining("Beef")).thenReturn(rcpList);	
+		
+		// Act  
+		List <Recipe> actual = controller.getAll("Beef");
+				
+		// Assert
+
+		assertThat("Beef").isEqualTo(rcp.getTitle());
+		assertThat(actual).isSameAs(rcpList);
+	}
 		
 	
 	// Create
@@ -164,4 +166,16 @@ public class RecipeControllerTests {
 		verify(rcpRepo).delete(33L);    
 		verify(rcpRepo).findOne(33L);  	
 	}
+	@Test
+	public void test_that_null_is_returned_when_findOne_throws_EmptyResultDataAccessException_name() throws RecipeNotFoundException{
+		// Arrange
+		when(rcpRepo.findOne(4L)).thenThrow(new EmptyResultDataAccessException(0));
+		
+		// Act
+		Recipe actual = controller.delete(4L);
+		
+		// Assert
+		assertThat(actual).isNull(); 
+		verify(rcpRepo).findOne(4L); 
+	}	
 }

@@ -64,7 +64,7 @@ public class InstructionControllerTests {
 		when(instrRepo.findAll()).thenReturn(xxx); 	
 				
 		// Act
-		List<Instruction> actual = controller.getAll();
+		List<Instruction> actual = controller.getAll(null);
 				
 		// Assert
 		assertThat(actual.size()).isEqualTo(2);
@@ -73,6 +73,27 @@ public class InstructionControllerTests {
 	}		
 	
 
+//	// GetAll - (2) by TITLE    test the get-all-ingredients-returned-for-a-recipe-search branch
+//	@Test
+//	public void test_that_get_all_returns_all_ingredients_for_a_given_recipe_by_recipe_id() {
+//		
+//		// Arrange
+//		Ingredient xxx = new Ingredient();
+//		xxx.setId(13L);
+//		ArrayList<Ingredient> xxxList = new ArrayList<Ingredient>();  
+//		xxxList.add(xxx);		                              
+//		when(ingrRepo.findByRecipeId(13L)).thenReturn(xxxList);	
+//		
+//		// Act  
+//		List<Ingredient> actual = controller.getAll(13L);
+//				
+//		// Assert
+//		assertThat(13L).isEqualTo(xxx.getId());  // I understand, it's just a getter test, just training myself
+//		assertThat(actual).isSameAs(xxxList);
+//	}
+	
+	
+	
 	// GetOne
 	@Test
 	public void test_get_a_recipe_by_id() throws InstructionNotFoundException{
@@ -112,7 +133,6 @@ public class InstructionControllerTests {
 	}
 	
 
-
 	// Delete
 	@Test
 	public void test_delete_returns_instruction_deleted_when_that_instruction_is_found() {
@@ -128,8 +148,8 @@ public class InstructionControllerTests {
 		verify(instrRepo).delete(33L);    
 		verify(instrRepo).findOne(33L);  	
 	}
-	//@Test
-	public void test_that_null_is_returned_when_instruction_to_be_deleted_cannot_be_found() {
+	@Test
+	public void test_that_null_is_returned_when_findOne_thows_exc_name() throws InstructionNotFoundException{
 		// Arrange
 		when(instrRepo.findOne(4L)).thenThrow(new EmptyResultDataAccessException(0));
 		
@@ -139,5 +159,5 @@ public class InstructionControllerTests {
 		// Assert
 		assertThat(actual).isNull(); 
 		verify(instrRepo).findOne(4L); 
-	}	
+	}
 }

@@ -1,7 +1,13 @@
 package com.libertymutual.goforcode.cook.controllers;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 import java.util.Arrays;
 import java.util.List;
+
+import org.junit.Test;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,10 +25,13 @@ import com.libertymutual.goforcode.cook.repositories.IngrRepository;
 import com.libertymutual.goforcode.cook.repositories.InstrRepository;
 import com.libertymutual.goforcode.cook.repositories.RecipeRepository;
 
+import io.swagger.annotations.Api;
+
 
 
 @RestController
 @RequestMapping("/recipes")
+@Api(value = "We are going to add much more info here... Eventually")
 public class RecipeController {
 
 	private RecipeRepository rcpRepo;
@@ -104,5 +113,4 @@ public class RecipeController {
 			 return null;
 		}
 	}
-
 }

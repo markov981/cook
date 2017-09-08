@@ -30,13 +30,20 @@ public class IngredController {
 		this.rcpRepo = rcpRepo; //
 	}
 	
+
 	
-	
+	// Show Ingredients by Recipe, if RecipeId is given (not all Ingredients in the @Entity table)
 	@GetMapping("")
-	public List<Ingredient> getAll(@PathVariable long recipeId) {
+	public List<Ingredient> getAll(@PathVariable Long recipeId) {		
+		List<Ingredient> ingr;
+		
+		if (recipeId != null) {
+			ingr = ingrRepo.findByRecipeId(recipeId);
+			return ingr;
+		}
 		return ingrRepo.findAll();
 	}
-
+			
 	
 	@GetMapping("{ing_id}")
 	public Ingredient getOne(@PathVariable long ing_id) throws IngredientNotFoundException {

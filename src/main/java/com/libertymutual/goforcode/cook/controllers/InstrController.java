@@ -31,14 +31,20 @@ public class InstrController {
 		this.instrRepo = instrRepo;
 		this.rcpRepo   = rcpRepo;
 	}
-	
-	
-	
+
+
+	// Show Ingredients by Recipe, if RecipeId is given (not all Ingredients in the @Entity table)
 	@GetMapping("")
-	public List<Instruction> getAll() {
+	public List<Instruction> getAll(@PathVariable Long recipeId) {		
+		List<Instruction> instr;
+		
+		if (recipeId != null) {
+			instr = instrRepo.findByRecipeId(recipeId);
+			return instr;
+		}
 		return instrRepo.findAll();
 	}
-
+	
 	
 	@GetMapping("{ins_id}")
 	public Instruction getOne(@PathVariable long ing_id) throws InstructionNotFoundException {

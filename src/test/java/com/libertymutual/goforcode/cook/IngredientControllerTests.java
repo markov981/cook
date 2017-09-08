@@ -50,9 +50,10 @@ public class IngredientControllerTests {
 	}
 	
 	
-	// GetAll 
+	
+	// GetAll (1) by ID (recipeId = null, i.e. the user wants to see all ingredients in the DB (from all recipies)
 	@Test
-	public void test_that_get_all_returns_all_inredients_with_given_id() {
+	public void test_that_get_all_returns_all_inredients_with_the_given_id() {
 		
 		// Arrange
 		ArrayList<Ingredient> xxx = new ArrayList<Ingredient>();
@@ -61,7 +62,7 @@ public class IngredientControllerTests {
 		when(ingrRepo.findAll()).thenReturn(xxx); 	
 				
 		// Act
-		List<Ingredient> actual = controller.getAll(11L);
+		List<Ingredient> actual = controller.getAll(null);
 				
 		// Assert
 		assertThat(actual.size()).isEqualTo(2);
@@ -69,10 +70,33 @@ public class IngredientControllerTests {
 		verify(ingrRepo).findAll();   
 	}		
 	
+	
+	// GetAll - (2) by TITLE    test the get-all-ingredients-returned-for-a-recipe-search branch
+	@Test
+	public void test_that_get_all_returns_all_ingredients_for_a_given_recipe_by_recipe_id() {
+		
+		// Arrange
+		Ingredient xxx = new Ingredient();
+		xxx.setId(13L);
+		ArrayList<Ingredient> xxxList = new ArrayList<Ingredient>();  
+		xxxList.add(xxx);		                              
+		when(ingrRepo.findByRecipeId(13L)).thenReturn(xxxList);	
+		
+		// Act  
+		List<Ingredient> actual = controller.getAll(13L);
+				
+		// Assert
+		assertThat(13L).isEqualTo(xxx.getId());  // I understand, it's just a getter test, just training myself
+		assertThat(actual).isSameAs(xxxList);
+	}
+	
+	
+	
+	
 
 	// GetOne
 	@Test
-	public void test_get_ingredient_by_id() throws IngredientNotFoundException{
+	public void test_get_an_ingredient_by_id() throws IngredientNotFoundException{
 		
 		// Arrange
 		Ingredient xxx = new Ingredient();				

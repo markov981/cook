@@ -11,7 +11,7 @@ import com.libertymutual.goforcode.cook.models.Recipe;
 @Repository
 public interface IngrRepository extends JpaRepository<Ingredient, Long>{
 	
-	public List<Ingredient> findByrecipeId(Long year);
+	public List<Ingredient> findByRecipeId(Long recipeId);
 
 
 }
