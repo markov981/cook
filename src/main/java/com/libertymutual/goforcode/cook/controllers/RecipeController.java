@@ -59,7 +59,13 @@ public class RecipeController {
 
 	
 	@GetMapping("")
-	public List<Recipe> getAll() {
+	public List<Recipe> getAll(String title) {
+		
+		List<Recipe> rcp;
+		if (title != null) {
+			rcp = rcpRepo.findByTitleContaining(title);
+			return rcp;
+		}	
 		return rcpRepo.findAll();
 	}
 
@@ -73,8 +79,22 @@ public class RecipeController {
 		}
 		return rcp;
 	}
-    
-		
+	
+
+//	@GetMapping("")
+//	public List <Recipe> getOneByTitle(String title) throws RecipeNotFoundException {
+//		List<Recipe> rcp;
+//	
+//		rcp = rcpRepo.findByTitleLike(title);
+// 			
+//		return rcp;
+//	}
+//	
+	
+	
+	
+	
+	
 	@PostMapping("")
 	public Recipe create(@RequestBody Recipe rcp) {
 		return rcpRepo.save(rcp);	

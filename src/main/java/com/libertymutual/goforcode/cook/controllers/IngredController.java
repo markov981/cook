@@ -23,9 +23,11 @@ import com.libertymutual.goforcode.cook.repositories.RecipeRepository;
 public class IngredController {
 
 	private IngrRepository ingrRepo;
+	private RecipeRepository rcpRepo; //
 
-	public IngredController(IngrRepository ingrRepo) {
+	public IngredController(IngrRepository ingrRepo, RecipeRepository rcpRepo) { //
 		this.ingrRepo = ingrRepo;
+		this.rcpRepo = rcpRepo; //
 	}
 	
 	
@@ -47,9 +49,11 @@ public class IngredController {
 	}
 	
 
-	
+	//
 	@PostMapping("")
-	public Ingredient create(@RequestBody Ingredient ingr) {
+	public Ingredient create(@PathVariable long recipeId, @RequestBody Ingredient ingr) {
+		Recipe recipe = rcpRepo.findOne(recipeId);
+		ingr.setRecipe(recipe);
 		return ingrRepo.save(ingr);	
 	}
 		
