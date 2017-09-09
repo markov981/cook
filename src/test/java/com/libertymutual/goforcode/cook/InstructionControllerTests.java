@@ -53,7 +53,7 @@ public class InstructionControllerTests {
 	}
 	
 	
-	// GetAll 
+	// GetAll - (1) literally, get all instruction records in the table, for all recipes
 	@Test
 	public void test_that_get_all_returns_all_inredients_with_given_id() {
 		
@@ -73,24 +73,23 @@ public class InstructionControllerTests {
 	}		
 	
 
-//	// GetAll - (2) by TITLE    test the get-all-ingredients-returned-for-a-recipe-search branch
-//	@Test
-//	public void test_that_get_all_returns_all_ingredients_for_a_given_recipe_by_recipe_id() {
-//		
-//		// Arrange
-//		Ingredient xxx = new Ingredient();
-//		xxx.setId(13L);
-//		ArrayList<Ingredient> xxxList = new ArrayList<Ingredient>();  
-//		xxxList.add(xxx);		                              
-//		when(ingrRepo.findByRecipeId(13L)).thenReturn(xxxList);	
-//		
-//		// Act  
-//		List<Ingredient> actual = controller.getAll(13L);
-//				
-//		// Assert
-//		assertThat(13L).isEqualTo(xxx.getId());  // I understand, it's just a getter test, just training myself
-//		assertThat(actual).isSameAs(xxxList);
-//	}
+	//  GetAll - (2) by ID    test the get-all-instructions-returned-for-a-recipe-search-by-id branch
+    //	@Test
+	public void test_that_getall_returns_all_ingredients_for_a_recipe_id() {		
+		// Arrange
+		Instruction xxx = new Instruction();
+		xxx.setId(13L);
+		ArrayList<Instruction> xxxList = new ArrayList<Instruction>();  
+		xxxList.add(xxx);		                              
+		when(instrRepo.findByRecipeId(13L)).thenReturn(xxxList);	
+		
+		// Act  
+		List<Instruction> actual = controller.getAll(13L);
+				
+		// Assert
+		assertThat(13L).isEqualTo(xxx.getId());  // I understand, it's just a getter test, just training myself
+		assertThat(actual).isSameAs(xxxList);
+	}
 	
 	
 	

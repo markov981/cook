@@ -25,7 +25,7 @@ public class IngredController {
 	private IngrRepository ingrRepo;
 	private RecipeRepository rcpRepo; //
 
-	public IngredController(IngrRepository ingrRepo, RecipeRepository rcpRepo) { //
+	public IngredController(IngrRepository ingrRepo, RecipeRepository rcpRepo) { 
 		this.ingrRepo = ingrRepo;
 		this.rcpRepo = rcpRepo; //
 	}

@@ -71,9 +71,9 @@ public class IngredientControllerTests {
 	}		
 	
 	
-	// GetAll - (2) by TITLE    test the get-all-ingredients-returned-for-a-recipe-search branch
+	// GetAll - (2) by ID    test the get-all-ingredients-returned-for-a-recipe-search-by-id branch
 	@Test
-	public void test_that_get_all_returns_all_ingredients_for_a_given_recipe_by_recipe_id() {
+	public void test_that_getall_returns_all_ingredients_for_a_recipe_id() {
 		
 		// Arrange
 		Ingredient xxx = new Ingredient();
