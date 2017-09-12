@@ -1,23 +1,39 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
-   <title> My Simple Front</title>
+  <title>Simple Front-End</title>
 </head>
 
-
 <body>
-	<ul id="list"></ul>
-	<div id="deail"></div>
-	
 
-<script
-  src="https://code.jquery.com/jquery-3.2.1.js"
-  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-  crossorigin="anonymous"></script>
+  <form id="create-recipe" method="POST"  action="/recipes"> 
+
+	<input 		id="title" 		 required 	type="text" name="title" 	    placeholder ="Recipe title">
+	<br>
+	<br>
+	<textarea 	id="description" required 	            name="description" 	placeholder ="Recipe Description"></textarea>
+	<br>
+	<br>
+	<input 		id="num_min" 	 required 	type="text" name="num_min" 	    placeholder ="Recipe number of minutes">
+	<br>
+	<br>
+	<button>Create it</button>
 	
-	<script src="front.js"></script>	
+  </form>
+
+
+  <ul  id="recipe-list"></ul>
+  <div id="recipe-detail"></div>
+  
+  <ul  id="instructions-list"></ul>
+  <ul  id="ingredients-list"></ul>
+  
+  <script
+        src="https://code.jquery.com/jquery-3.2.1.js"
+        integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+		crossorigin="anonymous"></script>
+		
+  <script src="front.js"></script>
 </body>
-
 </html>

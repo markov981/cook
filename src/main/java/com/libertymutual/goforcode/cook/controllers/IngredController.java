@@ -43,12 +43,6 @@ public class IngredController {
 		return ingr; 
 	}
 
-//	@GetMapping("")
-//	public List<Ingredient> getAll(@PathVariable long recipeId) {
-//		return ingrRepo.findAll();
-//	}
-	
-
 	
 	
 	
